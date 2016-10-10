@@ -27,18 +27,18 @@ function hyperid () {
 }
 
 function baseId (id) {
-  return new Buffer(uuid.parse(id)).toString('base64').replace(/==$/, '/')
+  return new Buffer(uuid.parse(id)).toString('base64').replace(/\//g, '_').replace(/==$/, '-')
 }
 
 function decode (id) {
-  const a = id.match(/(.*)+\/(\d+)+$/)
+  const a = id.match(/(.*)+\-(\d+)+$/)
 
   if (!a) {
     return null
   }
 
   const result = {
-    uuid: uuid.unparse(new Buffer(a[1] + '==', 'base64')),
+    uuid: uuid.unparse(new Buffer((a[1] + '==').replace(/_/g, '/'), 'base64')),
     count: parseInt(a[2])
   }
 
