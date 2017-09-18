@@ -35,7 +35,7 @@ function baseId (id) {
 }
 
 function decode (id) {
-  const a = id.match(/(.*)+\-(\d+)+$/)
+  const a = id.match(/(.*)+-(\d+)+$/)
 
   if (!a) {
     return null
